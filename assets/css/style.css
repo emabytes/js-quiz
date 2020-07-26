@@ -1,0 +1,16 @@
+.red {
+    background: red;
+}
+.green {
+    background: green;
+}
+
+input[type=button] {
+    background: navy;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }

@@ -71,24 +71,43 @@ let data = [
   },
 ];
 
-data.forEach((x) => {
-  document.getElementById("content").style.textAlign = "center";
-  document.getElementById(
-    "content"
-  ).innerHTML += `<br><br><br><img src=${x.url}><br>
-            <p>${x.question}</p><br>`;
+let counter = 1;
 
+data.forEach((x) => {
+  let buttons = "";
+  
   for (let i = 0; i < x.choice.length; i++) {
-    document.getElementById("content").innerHTML += `<input type="button" id="${
-      x.choice[i]
-    }" value="${x.choice[i]}" onclick="getAnswer('${x.choice[i]}', '${x.answer}')" >`;
+    buttons += `<input type="button" 
+                       id="${x.choice[i]}" 
+                       value="${x.choice[i]}" 
+                       onclick="getAnswer('${x.choice[i]}', '${x.answer}', 'question-${counter}')">`;
   }
+
+  document.getElementById("content")
+    .innerHTML += `<div id='question-${counter}'>
+                    <br>
+                    <br>
+                    <br>
+                    <img src=${x.url}>
+                    <br>
+                    <p>${x.question}</p>
+                    <br>${buttons}
+                   </div>`;
+
+  counter++;
 });
 
-function getAnswer(clickedAnswerValue, answer) {
+document.getElementById("content").style.textAlign = "center";
+
+function getAnswer(clickedAnswerValue, answer, questionId) {
+  let buttons = document.getElementById(questionId).getElementsByTagName("input");
+  for (let button of buttons) {
+    button.style.background = "navy";
+  }
+
   if (clickedAnswerValue == answer) {
     document.getElementById(clickedAnswerValue).style.background = "green";
   } else {
     document.getElementById(clickedAnswerValue).style.background = "red";
   }
-};
+}
